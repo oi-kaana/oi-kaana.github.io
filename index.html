@@ -193,8 +193,8 @@
 
         /* プロフィール情報（カード型に統一） */
         .profile-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            display: flex;
+            flex-direction: column;
             gap: 25px;
             margin: 40px 0;
         }
@@ -524,7 +524,7 @@
         <nav>
             <a href="#home">ホーム</a>
             <a href="#about">プロフィール</a>
-            <a href="#birthday">生年月日</a>
+            <a href="#career">経歴</a>
             <a href="#hobby">趣味</a>
             <a href="#food">好きな食べ物</a>
             <a href="#artists">好きなアーティスト</a>
@@ -563,8 +563,30 @@
             <h2 class="section-title">生年月日</h2>
             <div class="profile-grid">
                 <div class="profile-card">
-                    <h3>🎂 生年月日</h3>
+                    <h3>� 生年月日</h3>
                     <p>2000年5月11日</p>
+                </div>
+            </div>
+        </section>
+        <!-- 経歴セクション -->
+        <section id="career">
+            <h2 class="section-title">経歴</h2>
+            <div class="profile-grid">
+                <div class="profile-card">
+                    <h3>💼 株式会社コバヤシ第三営業部 東京支店 営業2部</h3>
+                    <p>2023年4月 - 現在</p>
+                </div>
+                <div class="profile-card">
+                    <h3>🎓 跡見学園女子大学</h3>
+                    <p>2019年4月 - 2023年3月</p>
+                </div>
+                <div class="profile-card">
+                    <h3>🏫 埼玉県立浦和東高等学校</h3>
+                    <p>2016年4月 - 2019年3月</p>
+                </div>
+                <div class="profile-card">
+                    <h3>🏢 さいたま市立原山中学校</h3>
+                    <p>2013年4月 - 2016年3月</p>
                 </div>
             </div>
         </section>
@@ -668,29 +690,40 @@
             const scrollPercent = scrollTop / docHeight;
 
             let backgroundColor;
-            if (scrollPercent < 0.25) {
+            if (scrollPercent < 0.15) {
+                // ホーム・プロフィール
                 backgroundColor = `linear-gradient(135deg, 
-                    #87CEEB ${30 - scrollPercent * 40}%, 
-                    #4682B4 ${60 + scrollPercent * 40}%, 
-                    #FF8C00 ${90 + scrollPercent * 40}%)`;
-            } else if (scrollPercent < 0.5) {
-                const localPercent = (scrollPercent - 0.25) * 4;
+                    #87CEEB ${25 - scrollPercent * 30}%, 
+                    #4682B4 ${55 + scrollPercent * 30}%, 
+                    #FF8C00 ${85 + scrollPercent * 30}%)`;
+            } else if (scrollPercent < 0.35) {
+                // 性格タグ・生年月日・経歴
+                const localPercent = (scrollPercent - 0.15) / 0.2;
                 backgroundColor = `linear-gradient(135deg, 
-                    #4682B4 ${30 - localPercent * 15}%, 
+                    #4682B4 ${25 - localPercent * 10}%, 
                     #FF8C00 ${50 + localPercent * 20}%, 
                     #FF6347 ${80 + localPercent * 20}%)`;
+            } else if (scrollPercent < 0.55) {
+                // 趣味・好きな食べ物
+                const localPercent = (scrollPercent - 0.35) / 0.2;
+                backgroundColor = `linear-gradient(135deg, 
+                    #FF8C00 ${20 + localPercent * 15}%, 
+                    #FF6347 ${50 + localPercent * 15}%, 
+                    #FF4500 ${80 + localPercent * 15}%)`;
             } else if (scrollPercent < 0.75) {
-                const localPercent = (scrollPercent - 0.5) * 4;
+                // 好きなアーティスト
+                const localPercent = (scrollPercent - 0.55) / 0.2;
                 backgroundColor = `linear-gradient(135deg, 
-                    #FF8C00 ${25 + localPercent * 10}%, 
-                    #FF6347 ${55 + localPercent * 10}%, 
-                    #FF4500 ${85 + localPercent * 15}%)`;
+                    #FF6347 ${25 + localPercent * 15}%, 
+                    #FF4500 ${55 + localPercent * 15}%, 
+                    #8B0000 ${85 + localPercent * 15}%)`;
             } else {
-                const localPercent = (scrollPercent - 0.75) * 4;
+                // SNS・フッター
+                const localPercent = (scrollPercent - 0.75) / 0.25;
                 backgroundColor = `linear-gradient(135deg, 
-                    #FF6347 ${35 - localPercent * 15}%, 
-                    #FF4500 ${60 + localPercent * 10}%, 
-                    #8B0000 ${90 + localPercent * 10}%)`;
+                    #FF4500 ${35 - localPercent * 15}%, 
+                    #8B0000 ${60 + localPercent * 10}%, 
+                    #4B0082 ${90 + localPercent * 10}%)`;
             }
 
             document.body.style.background = backgroundColor;
